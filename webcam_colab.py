@@ -36,7 +36,18 @@ def record_video(filename):
 
       const stream = await navigator.mediaDevices.getUserMedia({audio:true, video: true});
     
-      let recorder = new MediaRecorder(stream, options);
+      #let recorder = new MediaRecorder(stream, options);
+      if (MediaRecorder.isTypeSupported('video/webm; codecs=vp9')) {
+          var options = {mimeType: 'video/webm; codecs=vp9'};
+      } else  if (MediaRecorder.isTypeSupported('video/webm')) {
+          var options = {mimeType: 'video/webm'};
+      } else if (MediaRecorder.isTypeSupported('video/mp4')) {
+          var options = {mimeType: 'video/mp4', videoBitsPerSecond : 100000};
+      } else {
+          console.error("no suitable mimetype found for this device");
+      }
+      let recorder =  new MediaRecorder(stream, options);
+
       document.body.appendChild(div);
       div.appendChild(video);
 
