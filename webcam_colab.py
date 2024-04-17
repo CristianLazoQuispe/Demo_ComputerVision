@@ -16,7 +16,6 @@ def show_video(video_path, video_width = 600):
 def record_video(filename):
   js=Javascript("""
     async function recordVideo() {
-      const options = { mimeType: "video/webm; codecs=vp9" };
       const div = document.createElement('div');
       const capture = document.createElement('button');
       const stopCapture = document.createElement("button");
@@ -36,7 +35,6 @@ def record_video(filename):
 
       const stream = await navigator.mediaDevices.getUserMedia({audio:true, video: true});
     
-      #let recorder = new MediaRecorder(stream, options);
       if (MediaRecorder.isTypeSupported('video/webm; codecs=vp9')) {
           var options = {mimeType: 'video/webm; codecs=vp9'};
       } else  if (MediaRecorder.isTypeSupported('video/webm')) {
