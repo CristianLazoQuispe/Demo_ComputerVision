@@ -6,6 +6,24 @@ from base64 import b64decode
 from IPython.display import HTML
 from base64 import b64encode
 
+import cv2
+
+def count_frames(video_path):
+    # Open the video file
+    cap = cv2.VideoCapture(video_path)
+    
+    # Check if the video file is opened successfully
+    cnt = 0 
+    while cap.isOpened():
+        ret, img = cap.read()
+        if not ret:
+            break
+        cnt += 1
+    # Release the video capture object
+    cap.release()
+    
+    return cnt
+  
 def show_video(video_path, video_width = 600):
   
   video_file = open(video_path, "r+b").read()
